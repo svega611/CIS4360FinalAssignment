@@ -9,9 +9,13 @@
       - Location of baggage desk at airport_id
       - phone number for customer support
 2. Refund for Canceled Flight
+    - Method
+      - PUT
+    - URL
+      /flight_service/{flight_id}/refund
     - Inputs:
-      -  flight_id
+      - flight_id
     - Responses:
-      -  Success/Error
+      - Set customers refund flag to true on flight
     - Expected Result:
-      - Money is refunded to all customer_id on flight_id
+      - all customer_id on flight_id marked for refund 
