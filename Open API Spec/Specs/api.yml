@@ -1,0 +1,86 @@
+openapi: 3.0.0
+info:
+  title: Airline Customer Service API
+  description: |
+    Api for Customer Service for Microservice Airlines
+  version: 0.0.1
+servers:
+  - url: http://api.example.com/v1
+    description: Optional server description, e.g. Main (production) server
+paths:
+  /baggage_service/{airport_id}/info:
+    get:
+      summary: Get information for Microservice Airlines baggage Service
+      parameters:
+        - name: airport_id
+          in: path
+          required: true
+          description: ID of airport customer is in
+          schema:
+            type : string
+          example: 577B4ADB-FCB6-43A5-845B-918A952CB9B4
+      responses:
+        '200':    # status code
+          description: A JSON array with information on specific airport baggage service
+          content:
+            application/json:
+             example: [
+               {
+                 terminal: D,
+                 desk_phone_num: 2158675309
+               }
+             ] 
+             schema: 
+                type: array
+                items: 
+                 type: string
+        '400':
+          description: Invalid Airport id supplied
+        '404':
+          description: Baggage Service Office info not found
+  /flights_service/{flight_id}/refund:
+    put:
+      summary: Marks customers on flight_id for refund
+      parameters:
+        - name: airport_id
+          in: path
+          required: true
+          description: ID of flight that has been cancelled
+          schema:
+            type : string
+          example: 577B4ADB-FCB6-43A5-845B-918A952CB9B4
+          
+      requestBody:
+        required: true
+        content:
+          application/json:
+            example: [
+              {
+                customer_id: 14DAFFD0-7E0F-4B28-B7EF-19C6EF45704A,
+                refund: true,
+              },
+              {
+                customer_id: 181BBDA8-030E-407A-8DC4-7F16A0ABD6FF,
+                refund: true,
+              }
+            ]
+            schema:
+              type: array
+              items:
+                type: object
+                properties:
+                  customer_id:
+                    type: string
+                    example: 14DAFFD0-7E0F-4B28-B7EF-19C6EF45704A
+                  refund:
+                    type: boolean
+                    example: {
+                      refund: true
+                    }
+      responses:
+        '200':    # status code
+          description: Customers marked for refund
+        '400':
+          description: Invalid flight id supplied
+        '404':
+          description: Flight not found
